@@ -79,15 +79,13 @@
         </td>
         <td>
           <a href="/runs/<%= g.id %>/new"
-            ><button>
-              &nbsp;Add Run&nbsp;<i class="fa fa-plus">&nbsp;</i>
-            </button></a
+            ><button>&nbsp;Run&nbsp;<i class="fa fa-plus">&nbsp;</i></button></a
           >
         </td>
         <td>
           <form action="/goals/<%= g.id %>?_method=DELETE" method="POST">
             <button class="delete-button" type="submit">
-              &nbsp;Delete&nbsp;<i class="fa fa-trash-o"></i>&nbsp;
+              &nbsp;<i class="fa fa-trash-o"></i>&nbsp;
             </button>
           </form>
         </td>

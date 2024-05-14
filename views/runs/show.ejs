@@ -7,6 +7,9 @@
     <li>Time: <%= run.time%> minutes</li>
     <li>Terrain: <%= run.terrain.toUpperCase() %></li>
     <li>Status: <%= run.status.toUpperCase() %></li>
+    <li>Total&nbsp;<img
+      src="https://img.icons8.com/parakeet-line/48/applause.png" height="24px" width="24px"
+    />: <%= run.claps.length %></li>
   </ul>
 <br>
   <h3>Edit Run For <%= dayjs(run.date).format('MMM YYYY');%> Goal</h3>
