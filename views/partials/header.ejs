@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Running-Track</title>
+  </head>
+  <nav>
+    <a href="/">Running-Track</a>
+    &nbsp; <% if (user) { %> | &nbsp;
+    <a href="/goals">Goals</a>
+    &nbsp; | &nbsp;
+    <a href="/runs">Runs</a> &nbsp; | &nbsp;
+    <a href="/logout">Log Out</a>
+    <% } else { %> | &nbsp; <i class="fa fa-google">&nbsp;</i
+    ><a href="/auth/google">Log In</a>
+    <% } %>
+  </nav>
+  <body></body>
+</html>

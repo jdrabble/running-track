@@ -1,0 +1,128 @@
+<%- include('../partials/header') %>
+<main>
+  <h1>All Runs</h1>
+
+  <h3>
+    <i class="fa fa-bar-chart"></i>&nbsp;Total Completed Run Distance: <%=
+    totalDistance %>km <br />
+    <i class="fa fa-clock-o"></i>&nbsp;Total Completed Run Time: <%= totalTime
+    %>hours
+  </h3>
+
+  <% if (!message) { %>
+  <form action="/runs/search" method="GET">
+    <label>Date: <input type="month" name="month" /></label>
+    <label>Distance: <input type="number" name="distance" /></label>
+    <label
+      >Status:
+      <select name="status">
+        <option value="">All</option>
+        <option value="complete">Complete</option>
+        <option value="planned">Planned</option>
+      </select></label
+    >
+    <label
+      >Show Runs For:
+      <select name="user">
+        <option value="">All Runners</option>
+        <option value="<%= user.id %>">Just My Runs</option>
+      </select></label
+    >
+    <button class="create-button" type="submit">
+      &nbsp;Filter Runs&nbsp;<i class="fa fa-filter"></i>&nbsp;
+    </button>
+  </form>
+  <a href="/runs">
+    <button class="create-button">
+      &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
+    </button>
+  </a>
+  <% } else { %>
+
+  <h2 class="error"><%= message %></h2>
+  <a href="/runs">
+    <button class="create-button">
+      &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
+    </button>
+  </a>
+
+  <% } %> <% if (!message) { %>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Runner</th>
+        <th>Date</th>
+        <th>&nbsp;Time (mins)&nbsp;</th>
+        <th>&nbsp;Distance (m)&nbsp;</th>
+        <th>&nbsp;Avg Speed&nbsp;</th>
+        <th>&nbsp;Terrain&nbsp;</th>
+        <th>&nbsp;Status&nbsp;</th>
+        <% if (run.length) { %>
+        <th>&nbsp;Claps&nbsp;</th>
+        <th></th>
+        <th></th>
+        <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% run.forEach(function(r) { %>
+      <tr>
+        <% if (user?._id.equals(r.user)) { %>
+        <td>
+          <a href="/runs/show/<%= r.id %>"
+            >&nbsp;&nbsp;<i class="fa fa-search"></i>&nbsp;&nbsp;</a
+          >
+        </td>
+        <% } else { %>
+        <td></td>
+        <% } %>
+        <td class="avatar">
+          &nbsp;<img
+            src="<%= r.userAvatar %>"
+            referrerpolicy="no-referrer"
+          />&nbsp;<%= r.userName %>&nbsp;
+        </td>
+        <td>&nbsp;<%= dayjs(r.date).format('DD MMM YYYY'); %>&nbsp;</td>
+        <td><%= r.time %></td>
+        <td><%= r.distance %></td>
+        <td><%= r.speed %>kph</td>
+        <td>&nbsp;<%= r.terrain.toUpperCase() %>&nbsp;</td>
+        <td>&nbsp;<%= r.status.toUpperCase() %>&nbsp;</td>
+        <td><%= r.claps.length %></td>
+        <% if (!user?._id.equals(r.user) && r.status) { %>
+        <td>
+          <form action="/<%= r.id %>/awards" method="POST">
+            <button class="clap-button" name="clap" value="clap" type="submit">
+              &nbsp;<img
+                src="https://img.icons8.com/parakeet-line/48/applause.png"
+              />&nbsp;
+            </button>
+          </form>
+        </td>
+        <% } else { %>
+        <td></td>
+        <% } %> <% if (user?._id.equals(r.user)) { %>
+        <td>
+          <form
+            action="/runs/<%= r.id %>?_method=DELETE"
+            class="delete-form"
+            method="POST"
+          >
+            <button class="delete-button" type="submit">
+              &nbsp;Delete&nbsp;<i class="fa fa-trash-o"></i>&nbsp;
+            </button>
+          </form>
+        </td>
+        <% } else { %>
+        <td></td>
+        <% } %>
+      </tr>
+
+      <% }); %>
+    </tbody>
+  </table>
+  <% } %>
+</main>
+<%- include('../partials/footer') %>

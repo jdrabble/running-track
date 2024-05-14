@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+<main>
+  <h1>Your Goal</h1>
+
+  <ul>
+    <li>Goal Date: <%= dayjs(goal.startDate).format('MMM YYYY');%></li>
+    <li>Target Number of Runs: <%= goal.targetRuns%></li>
+  </ul>
+
+  <br />
+  <h3>Edit Target Number of Runs</h3>
+  <br />
+  <form action="/goals/update/<%= goal.id %>?_method=PUT" method="POST">
+    <label
+      >Target Runs:
+      <input
+        type="number"
+        name="targetRuns"
+        required
+        min="1"
+        value="<%= goal.targetRuns%>"
+      /> </label
+    ><br />
+
+    <button class="create-button" type="submit">
+      &nbsp;Edit This Goal&nbsp;<i class="fa fa-edit"></i>&nbsp;
+    </button>
+  </form>
+  <p class="error"><%= message %></p>
+  <form action="/goals/<%= goal.id %>?_method=DELETE" method="POST">
+    <button class="delete-button" type="submit">
+      &nbsp;Delete Goal&nbsp;<i class="fa fa-trash-o"></i>&nbsp;
+    </button>
+  </form>
+</main>
+<%- include('../partials/footer') %>

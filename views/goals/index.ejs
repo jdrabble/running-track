@@ -1,0 +1,110 @@
+<%- include('../partials/header') %>
+<main>
+  <h1>All Goals For <%= user.name %></h1>
+
+  <a href="/goals/new"
+    ><button>
+      &nbsp;Add New Goal&nbsp;<i class="fa fa-plus">&nbsp;</i>
+    </button></a
+  >
+
+  <% let total = 0; goal.forEach(function(g) { if (Math.round((g.runs.length /
+  g.targetRuns)*100) >= 100) { total++ } }); %>
+
+  <h3>
+    <i class="fa fa-trophy"></i>&nbsp;Total Number Completed Goals: <%= total
+    %><br />
+  </h3>
+
+  <% if (!message) { %>
+  <form action="/goals/search" method="GET">
+    <label>Date: <input type="month" name="startDate" /></label>
+
+    <button class="create-button" type="submit">
+      &nbsp;Filter Goals&nbsp;<i class="fa fa-filter"></i>&nbsp;
+    </button>
+  </form>
+  <a href="/goals">
+    <button class="create-button">
+      &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
+    </button>
+  </a>
+  <% } else { %>
+
+  <h2 class="error"><%= message %></h2>
+  <a href="/goals">
+    <button class="create-button">
+      &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
+    </button>
+  </a>
+
+  <% } %> <% if (!message) { %>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Runner</th>
+        <th>Date</th>
+        <th>&nbsp;Target Runs&nbsp;</th>
+        <th>&nbsp;Completed&nbsp;</th>
+        <th>&nbsp;Progress&nbsp;</th>
+        <th>&nbsp;Trophy&nbsp;</th>
+        <% if (goal.length) { %>
+        <th></th>
+        <th></th>
+        <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% goal.forEach(function(g) { %> <% if (user?._id.equals(g.user)) { %>
+      <tr>
+        <td>
+          <a href="/goals/show/<%= g.id %>"
+            >&nbsp;&nbsp;<i class="fa fa-search"></i>&nbsp;&nbsp;</a
+          >
+        </td>
+        <td class="avatar">
+          &nbsp;<img
+            src="<%= g.userAvatar %>"
+            referrerpolicy="no-referrer"
+          />&nbsp;<%= g.userName %>&nbsp;
+        </td>
+        <td>&nbsp;<%= dayjs(g.startDate).format('MMM YYYY'); %>&nbsp;</td>
+        <td><%= g.targetRuns %></td>
+        <td><%= g.runs.length %></td>
+        <td><%= Math.round((g.runs.length / g.targetRuns)*100) %>%</td>
+        <td>
+          <% if (Math.round((g.runs.length / g.targetRuns)*100) >=100) { %>
+          <i class="fa fa-trophy"></i> <% } %>
+        </td>
+        <td>
+          <a href="/runs/<%= g.id %>/new"
+            ><button>
+              &nbsp;Add Run&nbsp;<i class="fa fa-plus">&nbsp;</i>
+            </button></a
+          >
+        </td>
+        <td>
+          <form action="/goals/<%= g.id %>?_method=DELETE" method="POST">
+            <button class="delete-button" type="submit">
+              &nbsp;Delete&nbsp;<i class="fa fa-trash-o"></i>&nbsp;
+            </button>
+          </form>
+        </td>
+        <% if (g.runs.length <1 && g.synced !== "yes") { %>
+        <td id="sync">
+          <form action="/goals/<%= g.id %>/addruns" method="POST">
+            <button class="" type="submit">
+              &nbsp;<i class="fa fa-refresh"></i>&nbsp;
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% } else { %>
+      <tr></tr>
+      <% } %> <% }; %> <% }); %>
+    </tbody>
+  </table>
+  <% } %>
+</main>
+<%- include('../partials/footer') %>
