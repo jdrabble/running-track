@@ -13,25 +13,17 @@ body {
   background-color: rgb(146,215,98);
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-}
-
-nav {
-  font-weight: 500;
-  margin-bottom: 5px;
+  flex-direction: column; 
 }
 
 main {
+  margin-left: 10px;
+  margin-right: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-a {
-  color: rgb(40,107,250);
-  text-decoration: none;
-  cursor: pointer;
+  overflow: auto;
 }
 
 nav {
@@ -41,10 +33,18 @@ nav {
   background-color: rgb(40,107,250);
   color: white;
   height: 50px;
+  font-weight: 500;
+  margin-bottom: 5px;
 }
 
 nav > a {
  color: white;
+}
+
+a {
+  color: rgb(40,107,250);
+  text-decoration: none;
+  cursor: pointer;
 }
 
 footer {
@@ -69,10 +69,16 @@ form {
   align-items: center;
 }
 
+input, select {
+  width: 100px;
+  margin: 5px;
+}
+
 table {
-  margin-bottom: 10px;
+  margin: 10px;
   border-collapse: collapse;
   text-align: center;
+  font-size: 0.9rem;
 }
 
 th, td {
@@ -107,14 +113,17 @@ button {
 }
 
 .clap-button {
-  background-color: rgb(40,107,250);
-  border-radius: 50%;
+  background-color: orange;
 }
 
 .clap-button >img {
   height: 18px;
   width: 18px;
   padding-top: 5px;
+}
+
+table > form > button {
+  font-size: 0.9rem;
 }
 
 #sync {
@@ -128,12 +137,13 @@ button {
 }
 
 .intro {
-  width: 400px;
+  max-width: 400px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 10px;
 }
 
 .avatar img {

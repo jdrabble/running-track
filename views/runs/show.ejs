@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 <main>
-  <h1>Your Run</h1>
+  <h2>Your Run</h2>
   <ul>
     <li>Run Date: <%= dayjs(run.date).format('DD MMM YYYY');%></li>
     <li>Distance: <%= run.distance%> meters</li>
@@ -13,19 +13,18 @@
   </ul>
 <br>
   <h3>Edit Run For <%= dayjs(run.date).format('MMM YYYY');%> Goal</h3>
-<br>
   <form action="/runs/update/<%= run.id %>?_method=PUT" method="POST">
     <label
       >Date (in <%= dayjs(run.date).format('MMM YYYY');%> ): <input type="date" name="date" value="<%= dayjs(run.date).format('YYYY-MM-DD') %>" required /> </label
-    ><br />
+    >
     <label
       >Time (minutes):
       <input type="number" min="1" name="time" value="<%= run.time%>" required /> </label
-    ><br />
+    >
     <label
       >Distance (meters):
       <input type="number" min="1" name="distance" value="<%= run.distance%>" required/> </label
-    ><br />
+    >
     <label
       >Terrain:
       <select name="terrain">
@@ -35,14 +34,12 @@
         <option value="trail" <% if (run.terrain === "trail")  { %> selected <% } %> >Trail</option>
       </select> </label
       >
-      <br />
     <label
       >Status:
       <select name="status">
           <option value="complete" <% if (run.status === "complete")  { %> selected <% } %> >Completed</option>
           <option value="planned" <% if (run.status === "planned")  { %> selected <% } %> >Planned</option>
         </select> </label>
-    <br />
     <button class="create-button" type="submit">
       &nbsp;Edit This Run&nbsp;<i class="fa fa-edit"></i>&nbsp;
     </button>

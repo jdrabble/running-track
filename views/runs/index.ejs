@@ -1,11 +1,11 @@
 <%- include('../partials/header') %>
 <main>
-  <h1>All Runs</h1>
+  <h2>All Runs</h2>
 
   <h3>
-    <i class="fa fa-bar-chart"></i>&nbsp;Total Completed Run Distance: <%=
+    <i class="fa fa-bar-chart"></i>&nbsp;Total Completed Distance: <%=
     totalDistance %>km <br />
-    <i class="fa fa-clock-o"></i>&nbsp;Total Completed Run Time: <%= totalTime
+    <i class="fa fa-clock-o"></i>&nbsp;Total Completed Time: <%= totalTime
     %>hours
   </h3>
 
@@ -22,7 +22,7 @@
       </select></label
     >
     <label
-      >Show Runs For:
+      >Show:
       <select name="user">
         <option value="">All Runners</option>
         <option value="<%= user.id %>">Just My Runs</option>
@@ -47,18 +47,16 @@
   </a>
 
   <% } %> <% if (!message) { %>
-
   <table>
     <thead>
       <tr>
         <th></th>
-        <th>Runner</th>
+        <th>&nbsp;Runner&nbsp;</th>
         <th>Date</th>
         <th>&nbsp;Minutes&nbsp;</th>
         <th>&nbsp;Meters&nbsp;</th>
-        <th>&nbsp;Avg Speed&nbsp;</th>
-        <th>&nbsp;Terrain&nbsp;</th>
-        <th>&nbsp;Status&nbsp;</th>
+        <th>&nbsp;Av Speed&nbsp;</th>
+        <th>&nbsp;Status & Terrain&nbsp;</th>
         <% if (run.length) { %>
         <th>&nbsp;Claps&nbsp;</th>
         <th></th>
@@ -82,14 +80,16 @@
           &nbsp;<img
             src="<%= r.userAvatar %>"
             referrerpolicy="no-referrer"
-          />&nbsp;<%= r.userName %>&nbsp;
+          />&nbsp;JD&nbsp;
         </td>
         <td>&nbsp;<%= dayjs(r.date).format('DD MMM YYYY'); %>&nbsp;</td>
         <td><%= r.time %></td>
         <td><%= r.distance %></td>
         <td><%= r.speed %>kph</td>
-        <td>&nbsp;<%= r.terrain.toUpperCase() %>&nbsp;</td>
-        <td>&nbsp;<%= r.status.toUpperCase() %>&nbsp;</td>
+        <td>
+          &nbsp;<%= r.status.toUpperCase() %> &&nbsp;<br />
+          &nbsp;<%= r.terrain.toUpperCase() %>&nbsp;
+        </td>
         <td><%= r.claps.length %></td>
         <% if (!user?._id.equals(r.user) && r.status) { %>
         <td>

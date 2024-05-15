@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 <main>
-  <h1>Your Goal</h1>
+  <h2>Your Goal</h2>
 
   <ul>
     <li>Goal Date: <%= dayjs(goal.startDate).format('MMM YYYY');%></li>
@@ -9,7 +9,6 @@
 
   <br />
   <h3>Edit Target Number of Runs</h3>
-  <br />
   <form action="/goals/update/<%= goal.id %>?_method=PUT" method="POST">
     <label
       >Target Runs:
@@ -19,8 +18,8 @@
         required
         min="1"
         value="<%= goal.targetRuns%>"
-      /> </label
-    ><br />
+      />
+    </label>
 
     <button class="create-button" type="submit">
       &nbsp;Edit This Goal&nbsp;<i class="fa fa-edit"></i>&nbsp;

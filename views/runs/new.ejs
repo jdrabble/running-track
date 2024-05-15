@@ -1,18 +1,17 @@
 <%- include('../partials/header') %>
 <main>
-  <h2>Add New Run For <%= dayjs(goal.startDate).format('MMM YYYY'); %> Goal</h2>
+  <h2>Add New Run</h2>
+  <h2>For <%= dayjs(goal.startDate).format('MMM YYYY'); %> Goal</h2>
 
   <form action="/runs/<%= goal._id %>/goal" method="POST">
     <label
       >Date (in <%= dayjs(goal.startDate).format('MMM YYYY') %>):
-      <input type="date" name="date" /> </label
-    ><br />
-    <label>Time (minutes): <input type="number" name="time" min="1" /> </label
-    ><br />
+      <input type="date" name="date" />
+    </label>
+    <label>Time (minutes): <input type="number" name="time" min="1" /> </label>
     <label
-      >Distance (meters):
-      <input type="number" name="distance" min="1" /> </label
-    ><br />
+      >Distance (meters): <input type="number" name="distance" min="1" />
+    </label>
     <label
       >Terrain:
       <select name="terrain">
@@ -20,15 +19,15 @@
         <option value="road">Road</option>
         <option value="track">Track</option>
         <option value="trail">Trail</option>
-      </select> </label
-    ><br />
+      </select>
+    </label>
     <label
       >Status:
       <select name="status">
         <option value="complete" selected>Complete</option>
         <option value="planned">Planned</option>
-      </select> </label
-    ><br />
+      </select>
+    </label>
     <button class="create-button" type="submit">
       &nbsp;Add Run&nbsp;<i class="fa fa-plus">&nbsp;</i>
     </button>

@@ -1,6 +1,8 @@
 <%- include('../partials/header') %>
 <main>
-  <h1>All Goals For <%= user.name %></h1>
+  <h2>All Goals For</h2>
+  <!-- hard coded for project demo, replace with user.name, same in goal and run tables -->
+  <h2>J Drabble</h2>
 
   <a href="/goals/new"
     ><button>
@@ -12,8 +14,7 @@
   g.targetRuns)*100) >= 100) { total++ } }); %>
 
   <h3>
-    <i class="fa fa-trophy"></i>&nbsp;Total Number Completed Goals: <%= total
-    %><br />
+    <i class="fa fa-trophy"></i>&nbsp;Total Completed Goals: <%= total %><br />
   </h3>
 
   <% if (!message) { %>
@@ -43,10 +44,10 @@
     <thead>
       <tr>
         <th></th>
-        <th>Runner</th>
+        <th>&nbsp;Runner&nbsp;</th>
         <th>Date</th>
         <th>&nbsp;Target Runs&nbsp;</th>
-        <th>&nbsp;Completed&nbsp;</th>
+        <th>&nbsp;Runs Done&nbsp;</th>
         <th>&nbsp;Progress&nbsp;</th>
         <th>&nbsp;Trophy&nbsp;</th>
         <% if (goal.length) { %>
@@ -67,7 +68,7 @@
           &nbsp;<img
             src="<%= g.userAvatar %>"
             referrerpolicy="no-referrer"
-          />&nbsp;<%= g.userName %>&nbsp;
+          />&nbsp;JD&nbsp;
         </td>
         <td>&nbsp;<%= dayjs(g.startDate).format('MMM YYYY'); %>&nbsp;</td>
         <td><%= g.targetRuns %></td>
@@ -103,6 +104,7 @@
       <% } %> <% }; %> <% }); %>
     </tbody>
   </table>
+
   <% } %>
 </main>
 <%- include('../partials/footer') %>
