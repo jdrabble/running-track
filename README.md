@@ -8,14 +8,15 @@ Set your monthly running goals, enter the details of your planned and completed 
 
 ## Getting Started
 
-Log in using Google Oauth to create your account. Enter some monthly running goals and the details of your planned and completed runs. You can edit and delete your goals and runs if necessary.
+Log in using Google Oauth to create your account. Create some monthly running goals and enter the details of your planned and completed runs. You can edit and delete your goals and runs if necessary.
 
 [Running-Track](https://running-track.onrender.com/)
 
 ![live application screenshot!](./hpss.png "live application screenshot")
-[Fitness PNGs by Vecteezy](https://www.vecteezy.com/free-png/fitness)
 ![live application screenshot!](./gss.png "live application screenshot")
 ![live application screenshot!](./rss.png "live application screenshot")
+
+[Fitness PNGs by Vecteezy](https://www.vecteezy.com/free-png/fitness)
 
 ## User Stories
 
