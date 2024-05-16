@@ -1,5 +1,6 @@
 <%- include('../partials/header') %>
 <main>
+  <div class="dashboard">
   <h2>Your Run</h2>
   <ul>
     <li>Run Date: <%= dayjs(run.date).format('DD MMM YYYY');%></li>
@@ -19,11 +20,11 @@
     >
     <label
       >Time (minutes):
-      <input type="number" min="1" name="time" value="<%= run.time%>" required /> </label
+      <input type="number" min="1" required name="time" value="<%= run.time%>"  /> </label
     >
     <label
       >Distance (meters):
-      <input type="number" min="1" name="distance" value="<%= run.distance%>" required/> </label
+      <input type="number" min="1" required name="distance" value="<%= run.distance%>" /> </label
     >
     <label
       >Terrain:
@@ -54,5 +55,6 @@
               &nbsp;Delete Run&nbsp;<i class="fa fa-trash-o"></i>&nbsp;
             </button>
           </form>
+        </div>
 </main>
 <%- include('../partials/footer') %>

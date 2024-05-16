@@ -6,12 +6,12 @@ const goalSchema = new Schema(
   {
     startDate: {
       type: Date,
-      required: [true, "must enter start date"],
+      required: [true, "Must enter start date"],
     },
     targetRuns: {
       type: Number,
-      min: [1, "must be 1 or greater"],
-      required: [true, "must enter a target"],
+      min: [1, "Must be 1 or greater"],
+      required: [true, "Must enter a target"],
     },
     synced: {
       type: String,

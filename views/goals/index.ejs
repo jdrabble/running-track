@@ -1,35 +1,37 @@
 <%- include('../partials/header') %>
 <main>
-  <h2>All Goals For</h2>
-  <!-- hard coded for project demo, replace with user.name, same in goal and run tables -->
-  <h2>J Drabble</h2>
+  <div class="dashboard">
+    <h2>All Goals For</h2>
+    <!-- hard coded for project demo, replace with user.name, same in goal and run tables -->
+    <h2>J Drabble</h2>
 
-  <a href="/goals/new"
-    ><button>
-      &nbsp;Add New Goal&nbsp;<i class="fa fa-plus">&nbsp;</i>
-    </button></a
-  >
+    <a href="/goals/new"
+      ><button>
+        &nbsp;Add New Goal&nbsp;<i class="fa fa-plus">&nbsp;</i>
+      </button></a
+    >
 
-  <% let total = 0; goal.forEach(function(g) { if (Math.round((g.runs.length /
-  g.targetRuns)*100) >= 100) { total++ } }); %>
+    <% let total = 0; goal.forEach(function(g) { if (Math.round((g.runs.length /
+    g.targetRuns)*100) >= 100) { total++ } }); %>
 
-  <h3>
-    <i class="fa fa-trophy"></i>&nbsp;Total Completed Goals: <%= total %><br />
-  </h3>
+    <h3>
+      <i class="fa fa-trophy"></i>&nbsp;Total Completed Goals: <%= total %><br />
+    </h3>
 
-  <% if (!message) { %>
-  <form action="/goals/search" method="GET">
-    <label>Date: <input type="month" name="startDate" /></label>
+    <% if (!message) { %>
+    <form action="/goals/search" method="GET">
+      <label>Date: <input type="month" name="startDate" /></label>
 
-    <button class="create-button" type="submit">
-      &nbsp;Filter Goals&nbsp;<i class="fa fa-filter"></i>&nbsp;
-    </button>
-  </form>
-  <a href="/goals">
-    <button class="create-button">
-      &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
-    </button>
-  </a>
+      <button class="create-button" type="submit">
+        &nbsp;Filter Goals&nbsp;<i class="fa fa-filter"></i>&nbsp;
+      </button>
+    </form>
+    <a href="/goals">
+      <button class="create-button">
+        &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
+      </button>
+    </a>
+  </div>
   <% } else { %>
 
   <h2 class="error"><%= message %></h2>
@@ -38,73 +40,78 @@
       &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
     </button>
   </a>
+  </div>
 
   <% } %> <% if (!message) { %>
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>&nbsp;Runner&nbsp;</th>
-        <th>Date</th>
-        <th>&nbsp;Target Runs&nbsp;</th>
-        <th>&nbsp;Runs Done&nbsp;</th>
-        <th>&nbsp;Progress&nbsp;</th>
-        <th>&nbsp;Trophy&nbsp;</th>
-        <% if (goal.length) { %>
-        <th></th>
-        <th></th>
-        <% } %>
-      </tr>
-    </thead>
-    <tbody>
-      <% goal.forEach(function(g) { %> <% if (user?._id.equals(g.user)) { %>
-      <tr>
-        <td>
-          <a href="/goals/show/<%= g.id %>"
-            >&nbsp;&nbsp;<i class="fa fa-search"></i>&nbsp;&nbsp;</a
-          >
-        </td>
-        <td class="avatar">
-          &nbsp;<img
-            src="<%= g.userAvatar %>"
-            referrerpolicy="no-referrer"
-          />&nbsp;JD&nbsp;
-        </td>
-        <td>&nbsp;<%= dayjs(g.startDate).format('MMM YYYY'); %>&nbsp;</td>
-        <td><%= g.targetRuns %></td>
-        <td><%= g.runs.length %></td>
-        <td><%= Math.round((g.runs.length / g.targetRuns)*100) %>%</td>
-        <td>
-          <% if (Math.round((g.runs.length / g.targetRuns)*100) >=100) { %>
-          <i class="fa fa-trophy"></i> <% } %>
-        </td>
-        <td>
-          <a href="/runs/<%= g.id %>/new"
-            ><button>&nbsp;Run&nbsp;<i class="fa fa-plus">&nbsp;</i></button></a
-          >
-        </td>
-        <td>
-          <form action="/goals/<%= g.id %>?_method=DELETE" method="POST">
-            <button class="delete-button" type="submit">
-              &nbsp;<i class="fa fa-trash-o"></i>&nbsp;
-            </button>
-          </form>
-        </td>
-        <% if (g.runs.length <1 && g.synced !== "yes") { %>
-        <td id="sync">
-          <form action="/goals/<%= g.id %>/addruns" method="POST">
-            <button class="" type="submit">
-              &nbsp;<i class="fa fa-refresh"></i>&nbsp;
-            </button>
-          </form>
-        </td>
-      </tr>
-      <% } else { %>
-      <tr></tr>
-      <% } %> <% }; %> <% }); %>
-    </tbody>
-  </table>
-
+  <div class="results">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>&nbsp;Runner&nbsp;</th>
+          <th>Month</th>
+          <th>&nbsp;Target Runs&nbsp;</th>
+          <th>&nbsp;Runs Done&nbsp;</th>
+          <th>&nbsp;Progress&nbsp;</th>
+          <th>&nbsp;Trophy&nbsp;</th>
+          <% if (goal.length) { %>
+          <th>Run</th>
+          <th></th>
+          <% } %>
+        </tr>
+      </thead>
+      <tbody>
+        <% goal.forEach(function(g) { %> <% if (user?._id.equals(g.user)) { %>
+        <tr>
+          <td>
+            <a href="/goals/show/<%= g.id %>"
+              ><i id="search" class="fa fa-search"></i
+            ></a>
+          </td>
+          <td class="avatar">
+            &nbsp;<img
+              src="<%= g.userAvatar %>"
+              referrerpolicy="no-referrer"
+            />&nbsp;JD&nbsp;
+          </td>
+          <td>&nbsp;<%= dayjs(g.startDate).format('MMM YYYY'); %>&nbsp;</td>
+          <td><%= g.targetRuns %></td>
+          <td><%= g.runs.length %></td>
+          <td><%= Math.round((g.runs.length / g.targetRuns)*100) %>%</td>
+          <td>
+            <% if (Math.round((g.runs.length / g.targetRuns)*100) >=100) { %>
+            <i class="fa fa-trophy"></i> <% } %>
+          </td>
+          <td>
+            <a href="/runs/<%= g.id %>/new"
+              ><button>
+                &nbsp;Run&nbsp;<i class="fa fa-plus">&nbsp;</i>
+              </button></a
+            >
+          </td>
+          <td>
+            <form action="/goals/<%= g.id %>?_method=DELETE" method="POST">
+              <button class="delete-button" type="submit">
+                &nbsp;<i class="fa fa-trash-o"></i>&nbsp;
+              </button>
+            </form>
+          </td>
+          <% /* if (g.runs.length <1 && g.synced !== "yes") { */ %>
+          <!-- <td id="sync">
+            <form action="/goals/<%= /* g.id */ %>/addruns" method="POST">
+              <button class="" type="submit">
+                &nbsp;<i class="fa fa-refresh"></i>&nbsp;
+              </button>
+            </form>
+          </td>
+        </tr> -->
+          <% /* } else { */ %>
+          <!-- <tr></tr> -->
+          <% /* } */ %> <% }; %> <% }); %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <% } %>
 </main>
 <%- include('../partials/footer') %>

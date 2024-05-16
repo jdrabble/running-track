@@ -9,7 +9,7 @@ module.exports = {
   show,
   update,
   delete: deleteGoal,
-  addRuns,
+  // addRuns,
   search,
 };
 
@@ -30,31 +30,56 @@ async function newGoal(req, res) {
   res.render("goals/new", { dayjs: dayjs, message: "" });
 }
 
-async function addRuns(req, res) {
-  const goal = await Goal.findById(req.params.id);
-  const run = await Run.find({ user: req.user.id, status: "complete" });
+// async function addRuns(req, res) {
+//   const goal = await Goal.findById(req.params.id);
+//   const run = await Run.find({ user: req.user.id, status: "complete" });
 
-  for (let i = 0; i < run.length; i++) {
-    if (
-      run[i].date.getMonth() === goal.startDate.getMonth() &&
-      run[i].date.getYear() === goal.startDate.getYear()
-    ) {
-      //console.log(run[i].id, goal.id);
-      goal.runs.push(run[i].id);
-      await goal.save();
-    }
-    goal.synced = "yes";
-    await goal.save();
-  }
+//   for (let i = 0; i < run.length; i++) {
+//     if (
+//       run[i].date.getMonth() === goal.startDate.getMonth() &&
+//       run[i].date.getYear() === goal.startDate.getYear()
+//     ) {
+//       //console.log(run[i].id, goal.id);
+//       goal.runs.push(run[i].id);
+//       await goal.save();
+//     }
+//     goal.synced = "yes";
+//     await goal.save();
+//   }
 
-  res.redirect("/goals");
-}
+//   res.redirect("/goals");
+// }
+
+// async function create(req, res) {
+//   const goalDuplicate = await Goal.find({ startDate: req.body.startDate });
+
+//   if (goalDuplicate.length) {
+//     res.render("goals/new", { message: "Goal already exists for this date" });
+//   }
+//   try {
+//     if (!goalDuplicate.length) {
+//       req.body.synced = "";
+//       req.body.user = req.user._id;
+//       req.body.userName = req.user.name;
+//       req.body.userAvatar = req.user.avatar;
+//       const goal = await Goal.create(req.body);
+//     }
+//     res.redirect("/goals");
+//   } catch (error) {
+//     console.log(error);
+//     res.render("goals/new", { message: error });
+//   }
+// }
 
 async function create(req, res) {
-  const goalDuplicate = await Goal.find({ startDate: req.body.startDate });
+  const goalDuplicate = await Goal.find({
+    startDate: req.body.startDate,
+    user: req.user._id,
+  });
+  const run = await Run.find({ user: req.user.id });
 
   if (goalDuplicate.length) {
-    res.render("goals/new", { message: "goal already exists for this date" });
+    res.render("goals/new", { message: "Goal already exists for this date" });
   }
   try {
     if (!goalDuplicate.length) {
@@ -63,6 +88,21 @@ async function create(req, res) {
       req.body.userName = req.user.name;
       req.body.userAvatar = req.user.avatar;
       const goal = await Goal.create(req.body);
+
+      if (run.length) {
+        for (let i = 0; i < run.length; i++) {
+          if (
+            run[i].date.getMonth() === goal.startDate.getMonth() &&
+            run[i].date.getYear() === goal.startDate.getYear()
+          ) {
+            //console.log(run[i].id, goal.id);
+            goal.runs.push(run[i].id);
+            await goal.save();
+          }
+          goal.synced = "yes";
+          await goal.save();
+        }
+      }
     }
     res.redirect("/goals");
   } catch (error) {
@@ -97,7 +137,7 @@ async function update(req, res) {
     res.redirect("/goals");
   } catch (err) {
     console.log(err);
-    res.render(`goals/show/${goal.id}`, {
+    res.render("goals/show", {
       goal,
       dayjs: dayjs,
       message: err.message,

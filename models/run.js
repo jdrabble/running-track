@@ -25,20 +25,20 @@ const runSchema = new Schema(
   {
     date: {
       type: Date,
-      required: [true, "must enter start date"],
+      required: [true, "Must enter run date"],
     },
     month: {
       type: Date,
     },
     time: {
       type: Number,
-      min: [1, "must be 1 or greater"],
-      required: [true, "must enter a time"],
+      min: [1, "Must be 1 or greater"],
+      required: [true, "Must enter a time"],
     },
     distance: {
       type: Number,
-      min: [1, "must be 1 or greater"],
-      required: [true, "must enter a distance"],
+      min: [1, "Must be 1 or greater"],
+      required: [true, "Must enter a distance"],
     },
     speed: {
       type: Number,

@@ -55,6 +55,18 @@ async function create(req, res) {
   let dateCheck = Date.parse(req.body.date);
   let dateChecked = new Date(dateCheck);
 
+  if (
+    dateChecked.getMonth() !== goal.startDate.getMonth() &&
+    dateChecked.getYear() !== goal.startDate.getYear()
+  ) {
+    console.log("NO MATCH", dateChecked.getMonth(), goal.startDate.getMonth());
+    res.render("runs/new", {
+      goal,
+      dayjs: dayjs,
+      message: "Date does not match goal month and year",
+    });
+  }
+
   try {
     //console.log(dateChecked.getMonth(), goal.startDate.getMonth());
     if (
@@ -106,6 +118,18 @@ async function update(req, res) {
   let dateCheck = Date.parse(req.body.date);
   let dateChecked = new Date(dateCheck);
 
+  if (
+    dateChecked.getMonth() !== run.date.getMonth() &&
+    dateChecked.getYear() !== run.date.getYear()
+  ) {
+    console.log("NO MATCH", dateChecked.getMonth(), run.date.getMonth());
+    res.render("runs/show", {
+      run,
+      dayjs: dayjs,
+      message: "Date does not match goal month and year",
+    });
+  }
+
   try {
     if (
       dateChecked.getMonth() === run.date.getMonth() &&
@@ -115,15 +139,15 @@ async function update(req, res) {
       run.month = dayjs(req.body.date).format("YYYY-MM");
       run.distance = req.body.distance;
       run.time = req.body.time;
-      (run.speed = Math.round(req.body.distance / (req.body.time / 60) / 1000)),
-        (run.terrain = req.body.terrain);
+      run.speed = Math.round(req.body.distance / (req.body.time / 60) / 1000);
+      run.terrain = req.body.terrain;
       run.status = req.body.status;
       await run.save();
     }
     res.redirect("/runs");
   } catch (err) {
     console.log(err);
-    res.render(`runs/show/${run.id}`, {
+    res.render("runs/show", {
       run,
       dayjs: dayjs,
       message: err.message,
@@ -144,10 +168,6 @@ async function search(req, res) {
     if (req.query[key] === "") delete req.query[key];
   }
   console.log("QUERY", req.query);
-  // { date: { $gte: req.query.date, $lte: req.query.enddate } }
-  // const run = await Run.find(req.query).sort({
-  //   date: 1,
-  // });
 
   try {
     const run = await Run.find(req.query).sort({
