@@ -22,12 +22,12 @@
     <form action="/goals/search" method="GET">
       <label>Date: <input type="month" name="startDate" /></label>
 
-      <button class="create-button" type="submit">
+      <button type="submit">
         &nbsp;Filter Goals&nbsp;<i class="fa fa-filter"></i>&nbsp;
       </button>
     </form>
     <a href="/goals">
-      <button class="create-button">
+      <button >
         &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
       </button>
     </a>
@@ -36,7 +36,7 @@
 
   <h2 class="error"><%= message %></h2>
   <a href="/goals">
-    <button class="create-button">
+    <button >
       &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
     </button>
   </a>
@@ -80,7 +80,7 @@
           <td><%= Math.round((g.runs.length / g.targetRuns)*100) %>%</td>
           <td>
             <% if (Math.round((g.runs.length / g.targetRuns)*100) >=100) { %>
-            <i class="fa fa-trophy"></i> <% } %>
+            <i id="trophy" class="fa fa-trophy"></i> <% } %>
           </td>
           <td>
             <a href="/runs/<%= g.id %>/new"
@@ -96,18 +96,7 @@
               </button>
             </form>
           </td>
-          <% /* if (g.runs.length <1 && g.synced !== "yes") { */ %>
-          <!-- <td id="sync">
-            <form action="/goals/<%= /* g.id */ %>/addruns" method="POST">
-              <button class="" type="submit">
-                &nbsp;<i class="fa fa-refresh"></i>&nbsp;
-              </button>
-            </form>
-          </td>
-        </tr> -->
-          <% /* } else { */ %>
-          <!-- <tr></tr> -->
-          <% /* } */ %> <% }; %> <% }); %>
+        <% }; %> <% }); %>
         </tr>
       </tbody>
     </table>

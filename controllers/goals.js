@@ -9,7 +9,6 @@ module.exports = {
   show,
   update,
   delete: deleteGoal,
-  // addRuns,
   search,
 };
 
@@ -22,54 +21,13 @@ async function index(req, res) {
       match: { status: "complete" },
     })
     .sort({ startDate: 1 });
-  console.log("USER GOAL CHECKER", goal, req.user.id);
+  // console.log("USER GOAL CHECKER", goal, req.user.id);
   res.render("goals/index", { goal, dayjs: dayjs, message: "" });
 }
 
 async function newGoal(req, res) {
   res.render("goals/new", { dayjs: dayjs, message: "" });
 }
-
-// async function addRuns(req, res) {
-//   const goal = await Goal.findById(req.params.id);
-//   const run = await Run.find({ user: req.user.id, status: "complete" });
-
-//   for (let i = 0; i < run.length; i++) {
-//     if (
-//       run[i].date.getMonth() === goal.startDate.getMonth() &&
-//       run[i].date.getYear() === goal.startDate.getYear()
-//     ) {
-//       //console.log(run[i].id, goal.id);
-//       goal.runs.push(run[i].id);
-//       await goal.save();
-//     }
-//     goal.synced = "yes";
-//     await goal.save();
-//   }
-
-//   res.redirect("/goals");
-// }
-
-// async function create(req, res) {
-//   const goalDuplicate = await Goal.find({ startDate: req.body.startDate });
-
-//   if (goalDuplicate.length) {
-//     res.render("goals/new", { message: "Goal already exists for this date" });
-//   }
-//   try {
-//     if (!goalDuplicate.length) {
-//       req.body.synced = "";
-//       req.body.user = req.user._id;
-//       req.body.userName = req.user.name;
-//       req.body.userAvatar = req.user.avatar;
-//       const goal = await Goal.create(req.body);
-//     }
-//     res.redirect("/goals");
-//   } catch (error) {
-//     console.log(error);
-//     res.render("goals/new", { message: error });
-//   }
-// }
 
 async function create(req, res) {
   const goalDuplicate = await Goal.find({
@@ -79,11 +37,13 @@ async function create(req, res) {
   const run = await Run.find({ user: req.user.id });
 
   if (goalDuplicate.length) {
-    res.render("goals/new", { message: "Goal already exists for this date" });
+    res.render("goals/new", {
+      dayjs: dayjs,
+      message: "Goal already exists for this date",
+    });
   }
   try {
     if (!goalDuplicate.length) {
-      req.body.synced = "";
       req.body.user = req.user._id;
       req.body.userName = req.user.name;
       req.body.userAvatar = req.user.avatar;
@@ -99,44 +59,34 @@ async function create(req, res) {
             goal.runs.push(run[i].id);
             await goal.save();
           }
-          goal.synced = "yes";
           await goal.save();
         }
       }
     }
     res.redirect("/goals");
   } catch (error) {
-    console.log(error);
-    res.render("goals/new", { message: error });
+    // console.log(error);
+    res.render("goals/new", { dayjs: dayjs, message: error });
   }
 }
 
 async function show(req, res) {
   const goal = await Goal.findOne({ _id: req.params.id, user: req.user._id });
-  console.log(goal._id, req.params.id, goal.user, req.user._id);
+  // console.log(goal._id, req.params.id, goal.user, req.user._id);
   res.render("goals/show", { goal, dayjs: dayjs, message: "" });
-  // const goal = await Goal.findById(req.params.id);
-  // if (goal.user._id.toString() === req.user.id) {
-  //   console.log(
-  //     "THIS GOAL",
-  //     goal.id,
-  //     req.params.id,
-  //     goal.user._id.toString(),
-  //     req.user.id
-  //   );
-  // }
 }
 
 async function update(req, res) {
-  // const goal = await Goal.findById(req.params.id);
   const goal = await Goal.findOne({ _id: req.params.id, user: req.user._id });
+  const goalUpdate = await Goal.findOne({
+    _id: req.params.id,
+    user: req.user._id,
+  });
+  goalUpdate.targetRuns = req.body.targetRuns;
   try {
-    goal.targetRuns = req.body.targetRuns;
-    await goal.save();
-
+    await goalUpdate.save();
     res.redirect("/goals");
   } catch (err) {
-    console.log(err);
     res.render("goals/show", {
       goal,
       dayjs: dayjs,
@@ -169,13 +119,13 @@ async function search(req, res) {
       .sort({
         startDate: 1,
       });
-    console.log("GOAL SEARCH CHECK", goal);
+    // console.log("GOAL SEARCH CHECK", goal);
     if (goal.length < 1) {
       res.render("goals/index", { goal, dayjs, message: "No goals found" });
     }
 
     res.render("goals/index", { goal, dayjs: dayjs, message: "" });
   } catch (err) {
-    console.log(err);
+    res.redirect("back");
   }
 }

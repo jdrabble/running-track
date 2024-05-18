@@ -16,15 +16,15 @@
   <h3>Edit Run For <%= dayjs(run.date).format('MMM YYYY');%> Goal</h3>
   <form action="/runs/update/<%= run.id %>?_method=PUT" method="POST">
     <label
-      >Date (in <%= dayjs(run.date).format('MMM YYYY');%> ): <input type="date" name="date" value="<%= dayjs(run.date).format('YYYY-MM-DD') %>" required /> </label
+      >Date (in <%= dayjs(run.date).format('MMM YYYY');%> ): <input type="date" name="date" value="<%= dayjs(run.date).format('YYYY-MM-DD') %>" /> </label
     >
     <label
       >Time (minutes):
-      <input type="number" min="1" required name="time" value="<%= run.time%>"  /> </label
+      <input type="number" name="time" value="<%= run.time%>"  /> </label
     >
     <label
       >Distance (meters):
-      <input type="number" min="1" required name="distance" value="<%= run.distance%>" /> </label
+      <input type="number" name="distance" value="<%= run.distance%>" /> </label
     >
     <label
       >Terrain:
@@ -41,7 +41,7 @@
           <option value="complete" <% if (run.status === "complete")  { %> selected <% } %> >Completed</option>
           <option value="planned" <% if (run.status === "planned")  { %> selected <% } %> >Planned</option>
         </select> </label>
-    <button class="create-button" type="submit">
+    <button type="submit">
       &nbsp;Edit This Run&nbsp;<i class="fa fa-edit"></i>&nbsp;
     </button>
   </form>

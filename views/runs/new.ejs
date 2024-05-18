@@ -9,12 +9,8 @@
         >Date (in <%= dayjs(goal.startDate).format('MMM YYYY') %>):
         <input type="date" name="date" />
       </label>
-      <label
-        >Time (minutes): <input type="number" name="time" min="1" />
-      </label>
-      <label
-        >Distance (meters): <input type="number" name="distance" min="1" />
-      </label>
+      <label>Time (minutes): <input type="number" name="time" /> </label>
+      <label>Distance (meters): <input type="number" name="distance" /> </label>
       <label
         >Terrain:
         <select name="terrain">
@@ -27,11 +23,11 @@
       <label
         >Status:
         <select name="status">
-          <option value="complete" selected>Complete</option>
+          <option value="complete" selected>Completed</option>
           <option value="planned">Planned</option>
         </select>
       </label>
-      <button class="create-button" type="submit">
+      <button type="submit">
         &nbsp;Add Run&nbsp;<i class="fa fa-plus">&nbsp;</i>
       </button>
     </form>

@@ -32,7 +32,7 @@ Log in using Google OAuth to create your account. Create some monthly running go
 - As a user I want to see how I am progressing against my monthly goals, versus completed runs, as a percentage.
 - As a user I want to be able to see how many goals I have completed by month and in total.
 - As a user I want to be rewarded with a trophy when I achieve my monthly goal.
-- As a user I want my goal progress to be updated to include all my relevant completed monthly runs that occurred before the monthly goal was set up - for example, when an in-progress monthly goal is deleted and recreated.
+- As a user I want my monthly goal progress to be automatically updated to include all my relevant completed monthly runs that occurred before the monthly goal was set up - for example, if a goal is created part way through a month.
 - As a user I want to be able to create planned and completed runs that are linked to my corresponding monthly goal.
 - As a user I want to be able to edit all details of my runs, but not be able to change the run date to a different month and year to that of the linked goal month and year.
 - As a user I want to be able to delete my runs.
@@ -40,7 +40,7 @@ Log in using Google OAuth to create your account. Create some monthly running go
 - As a user I want to be able to see all my runs together, in date order, and filter them.
 - As a user I want to be able to see total competed run distance and time by date and in total and by user.
 - As a user I want to be able to see all other users runs together (only) and be able to filter them.
-- As a user I want other users to be able to clap my planned and completed runs, but not be able to clap my own runs.
+- As a user I want other users to be able to clap my planned and completed runs, but not be able to clap my own runs. Users should only be able to clap each run once and should be able to remove a clap.
 - As a user I want forms to be populated with values from my records and validation warnings to show if a mistake is made.
 - As a user I want the application to look simple and well laid out on different screen sizes.
 
@@ -61,14 +61,13 @@ Log in using Google OAuth to create your account. Create some monthly running go
 - HTML
 - CSS
 - JavaScript
-- Node/Express
-- MongoDB/Mongoose
+- Node and Express
+- MongoDB and Mongoose
+- Google OAuth
 
 ## Future Developments
 
 - Profile Page
 - Notifications
 - Connect with other users
-- More date ranges, run hours and seconds
-- More goal setting options
-- More run and goal filters and summary stats
+- More date, distance and duration options

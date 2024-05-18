@@ -13,16 +13,10 @@
     <form action="/goals/update/<%= goal.id %>?_method=PUT" method="POST">
       <label
         >Target Runs:
-        <input
-          type="number"
-          name="targetRuns"
-          required
-          min="1"
-          value="<%= goal.targetRuns%>"
-        />
+        <input type="number" name="targetRuns" value="<%= goal.targetRuns%>" />
       </label>
 
-      <button class="create-button" type="submit">
+      <button type="submit">
         &nbsp;Edit This Goal&nbsp;<i class="fa fa-edit"></i>&nbsp;
       </button>
     </form>

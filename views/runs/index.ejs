@@ -7,7 +7,8 @@
       <i class="fa fa-line-chart"></i>&nbsp;Total Completed Distance: <%=
       totalDistance %>km <br />
       <i class="fa fa-clock-o"></i>&nbsp;Total Completed Time: <%= totalTime
-      %>hours
+      %>hours <br />
+      <i class="fa fa-heartbeat"></i></i>&nbsp;Total Completed & Planned Runs: <%= run.length %>
     </h3>
 
     <% if (!message) { %>
@@ -18,7 +19,7 @@
         >Status:
         <select name="status">
           <option value="">All</option>
-          <option value="complete">Complete</option>
+          <option value="complete">Completed</option>
           <option value="planned">Planned</option>
         </select></label
       >
@@ -29,12 +30,12 @@
           <option value="<%= user.id %>">Just My Runs</option>
         </select></label
       >
-      <button class="create-button" type="submit">
+      <button type="submit">
         &nbsp;Filter Runs&nbsp;<i class="fa fa-filter"></i>&nbsp;
       </button>
     </form>
     <a href="/runs">
-      <button class="create-button">
+      <button >
         &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
       </button>
     </a>
@@ -43,7 +44,7 @@
 
     <h2 class="error"><%= message %></h2>
     <a href="/runs">
-      <button class="create-button">
+      <button >
         &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
       </button>
     </a>
@@ -98,7 +99,7 @@
           <td><%= r.claps.length %></td>
           <% if (!user?._id.equals(r.user) && r.status) { %>
           <td>
-            <form action="/<%= r.id %>/awards" method="POST">
+            <form action="/<%= r.id %>/claps" method="POST">
               <button
                 class="clap-button"
                 name="clap"
