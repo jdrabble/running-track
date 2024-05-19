@@ -4,7 +4,7 @@ Running-Track. An application to set your running goals, enter the details of yo
 
 ## Application Description/Objective
 
-Set your monthly running goals, enter the details of your planned and completed runs and automatically track your progress. View other users runs and clap each other! Access your runs on the go, no need for notepads or spreadsheets. It's easy to use, secure and free.
+Set your monthly running goals, enter the details of your planned and completed runs and automatically track your progress. View other users runs and clap each other for motivation! Access your runs on the go, no need for notepads or spreadsheets. It's easy to use, secure and free.
 
 ## Getting Started
 

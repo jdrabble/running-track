@@ -120,6 +120,11 @@ td img{
   font-size: 20px;
 }
 
+#applause {
+  height: 22px;
+  width: 22px;
+}
+
 #search {
   margin: 5px;
 }
@@ -218,6 +223,20 @@ td button {
     font-size: calc(1vw + 1vh);
   }
 
+  input, select {
+    width: 90px;
+    height: 18px;
+    margin: 4px;
+    font-size: 12px;
+  }
+
+  .clap-button-active {
+    display: flex;
+    background-color: orange;
+    height: 22px;
+    width: 22px;
+  }
+
   .clap-button {
     display: flex;
     background-color: lightgray;
@@ -225,8 +244,13 @@ td button {
     width: 22px;
   }
 
-  .clap-button >img {
+  .clap-button >img, .clap-button-active >img {
     position: absolute;
+    height: 16px;
+    width: 16px;
+  }
+
+  #applause {
     height: 16px;
     width: 16px;
   }

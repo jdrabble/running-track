@@ -13,15 +13,13 @@ module.exports = {
 };
 
 async function index(req, res) {
-  // const goal = await Goal.find({}).populate("runs").sort({ startDate: 1 });
-  //const run = await Run.find({ status: "complete" });
   const goal = await Goal.find({ user: req.user._id })
     .populate({
       path: "runs",
       match: { status: "complete" },
     })
     .sort({ startDate: 1 });
-  // console.log("USER GOAL CHECKER", goal, req.user.id);
+
   res.render("goals/index", { goal, dayjs: dayjs, message: "" });
 }
 
@@ -55,7 +53,6 @@ async function create(req, res) {
             run[i].date.getMonth() === goal.startDate.getMonth() &&
             run[i].date.getYear() === goal.startDate.getYear()
           ) {
-            //console.log(run[i].id, goal.id);
             goal.runs.push(run[i].id);
             await goal.save();
           }
@@ -65,14 +62,13 @@ async function create(req, res) {
     }
     res.redirect("/goals");
   } catch (error) {
-    // console.log(error);
     res.render("goals/new", { dayjs: dayjs, message: error });
   }
 }
 
 async function show(req, res) {
   const goal = await Goal.findOne({ _id: req.params.id, user: req.user._id });
-  //console.log(goal.user._id.toString(), req.user.id);
+
   if (!goal) {
     return res.redirect("/");
   } else if (goal.user._id.toString() === req.user.id);
@@ -101,7 +97,6 @@ async function update(req, res) {
 }
 
 async function deleteGoal(req, res) {
-  // const goal = await Goal.findByIdAndDelete(req.params.id);
   await Goal.deleteOne({ _id: req.params.id, user: req.user._id });
   res.redirect("/goals");
 }
@@ -112,7 +107,6 @@ async function search(req, res) {
   }
 
   try {
-    //const goal = await Goal.find(req.query)
     const goal = await Goal.find({
       startDate: req.query.startDate,
       user: req.user._id,
@@ -124,7 +118,7 @@ async function search(req, res) {
       .sort({
         startDate: 1,
       });
-    // console.log("GOAL SEARCH CHECK", goal);
+
     if (goal.length < 1) {
       res.render("goals/index", { goal, dayjs, message: "No goals found" });
     }

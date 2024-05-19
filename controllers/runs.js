@@ -31,7 +31,6 @@ async function index(req, res) {
   }
   let totalTime = (minutes / 60).toFixed(2);
 
-  //console.log(run);
   res.render("runs/index", {
     run,
     totalDistance,
@@ -52,26 +51,16 @@ async function newRun(req, res) {
 }
 
 async function create(req, res) {
-  //const goal = await Goal.findById(req.params.id);
   const goal = await Goal.findOne({ _id: req.params.id, user: req.user._id });
 
   try {
     let dateCheck = Date.parse(req.body.date);
     let dateChecked = new Date(dateCheck);
-    // console.log(
-    //   "DATES",
-    //   dateChecked.getMonth(),
-    //   dateChecked.getYear(),
-    //   goal.startDate.getMonth(),
-    //   goal.startDate.getYear()
-    // );
 
     if (
       dateChecked.getMonth() !== goal.startDate.getMonth() &&
       dateChecked.getYear() !== goal.startDate.getYear()
     ) {
-      // console.log("NO MATCH");
-
       res.render("runs/new", {
         goal,
         dayjs: dayjs,
@@ -88,8 +77,6 @@ async function create(req, res) {
       } else {
         speedCalc = 0;
       }
-
-      // console.log("MATCH");
 
       let runData = {
         user: req.user._id,
@@ -116,8 +103,6 @@ async function create(req, res) {
       message: "Date does not match goal month and year",
     });
   } catch (error) {
-    //console.log(error);
-
     res.render("runs/new", {
       goal,
       dayjs: dayjs,
@@ -127,7 +112,6 @@ async function create(req, res) {
 }
 
 async function show(req, res) {
-  //const run = await Run.findById(req.params.id);
   const run = await Run.findOne({ _id: req.params.id, user: req.user._id });
   if (!run) {
     return res.redirect("/");
@@ -138,7 +122,6 @@ async function show(req, res) {
 }
 
 async function update(req, res) {
-  //const run = await Run.findById(req.params.id);
   const run = await Run.findOne({ _id: req.params.id, user: req.user._id });
   const runUpdate = await Run.findOne({
     _id: req.params.id,
@@ -153,7 +136,6 @@ async function update(req, res) {
       dateChecked.getMonth() !== run.date.getMonth() &&
       dateChecked.getYear() !== run.date.getYear()
     ) {
-      //console.log("NO MATCH", dateChecked.getMonth(), run.date.getMonth());
       res.render("runs/show", {
         run,
         dayjs: dayjs,
@@ -188,7 +170,6 @@ async function update(req, res) {
       message: "Date does not match goal month and year",
     });
   } catch (err) {
-    //console.log(err);
     res.render("runs/show", {
       run,
       dayjs: dayjs,
@@ -198,10 +179,7 @@ async function update(req, res) {
 }
 
 async function deleteRun(req, res) {
-  // const run = await Run.findById(req.params.id);
-  // const run = await Run.findByIdAndDelete(req.params.id);
   await Run.deleteOne({ _id: req.params.id, user: req.user._id });
-  //console.log("XXX", run.user);
   res.redirect("/runs");
 }
 
@@ -209,7 +187,6 @@ async function search(req, res) {
   for (let key in req.query) {
     if (req.query[key] === "") delete req.query[key];
   }
-  //console.log("QUERY", req.query);
 
   try {
     const run = await Run.find(req.query).sort({
