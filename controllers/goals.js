@@ -72,8 +72,13 @@ async function create(req, res) {
 
 async function show(req, res) {
   const goal = await Goal.findOne({ _id: req.params.id, user: req.user._id });
-  // console.log(goal._id, req.params.id, goal.user, req.user._id);
-  res.render("goals/show", { goal, dayjs: dayjs, message: "" });
+  //console.log(goal.user._id.toString(), req.user.id);
+  if (!goal) {
+    return res.redirect("/");
+  } else if (goal.user._id.toString() === req.user.id);
+  {
+    res.render("goals/show", { goal, dayjs: dayjs, message: "" });
+  }
 }
 
 async function update(req, res) {

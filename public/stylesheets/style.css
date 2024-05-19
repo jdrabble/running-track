@@ -144,14 +144,21 @@ button > i {
   padding: 1px;
 }
 
-.clap-button {
+.clap-button-active {
   display: flex;
   background-color: lightgray;
   height: 28px;
   width: 28px;
 }
 
-.clap-button >img {
+.clap-button {
+  display: flex;
+  background-color: orange;
+  height: 28px;
+  width: 28px;
+}
+
+.clap-button >img, .clap-button-active >img {
   position: absolute;
   height: 22px;
   width: 22px;
@@ -182,6 +189,24 @@ td button {
   border-radius: 50%;
   height: 27px;
   margin-top: 3px;
+}
+
+.red {
+  background-color: red;
+  color: white;
+  font-weight: 450;
+}
+
+.amber {
+  background-color: orange;
+  color: white;
+  font-weight: 450;
+}
+
+.green {
+  background-color: rgb(0, 158, 0);
+  color: white;
+  font-weight: 450;
 }
 
 @media screen and (max-width: 400px) {

@@ -15,21 +15,21 @@ module.exports = {
 async function index(req, res) {
   const run = await Run.find({}).sort({ date: 1 });
 
-  let total = 0;
+  let meters = 0;
   for (i = 0; i < run.length; i++) {
     if (run[i].status === "complete") {
-      total += run[i].distance;
+      meters += run[i].distance;
     }
   }
-  let totalDistance = Math.round(total / 1000);
+  let totalDistance = (meters / 1000).toFixed(2);
 
-  let time = 0;
+  let minutes = 0;
   for (i = 0; i < run.length; i++) {
     if (run[i].status === "complete") {
-      time += run[i].time;
+      minutes += run[i].time;
     }
   }
-  let totalTime = Math.round(time / 60);
+  let totalTime = (minutes / 60).toFixed(2);
 
   //console.log(run);
   res.render("runs/index", {
@@ -43,7 +43,12 @@ async function index(req, res) {
 
 async function newRun(req, res) {
   const goal = await Goal.findOne({ _id: req.params.id, user: req.user._id });
-  res.render("runs/new", { goal, dayjs: dayjs, message: "" });
+  if (!goal) {
+    return res.redirect("/");
+  } else if (goal.user._id.toString() === req.user.id);
+  {
+    res.render("runs/new", { goal, dayjs: dayjs, message: "" });
+  }
 }
 
 async function create(req, res) {
@@ -53,19 +58,19 @@ async function create(req, res) {
   try {
     let dateCheck = Date.parse(req.body.date);
     let dateChecked = new Date(dateCheck);
-    console.log(
-      "DATES",
-      dateChecked.getMonth(),
-      dateChecked.getYear(),
-      goal.startDate.getMonth(),
-      goal.startDate.getYear()
-    );
+    // console.log(
+    //   "DATES",
+    //   dateChecked.getMonth(),
+    //   dateChecked.getYear(),
+    //   goal.startDate.getMonth(),
+    //   goal.startDate.getYear()
+    // );
 
     if (
       dateChecked.getMonth() !== goal.startDate.getMonth() &&
       dateChecked.getYear() !== goal.startDate.getYear()
     ) {
-      console.log("NO MATCH");
+      // console.log("NO MATCH");
 
       res.render("runs/new", {
         goal,
@@ -84,7 +89,7 @@ async function create(req, res) {
         speedCalc = 0;
       }
 
-      console.log("MATCH");
+      // console.log("MATCH");
 
       let runData = {
         user: req.user._id,
@@ -102,8 +107,14 @@ async function create(req, res) {
 
       goal.runs.push(run.id);
       await goal.save();
+
+      res.redirect("/goals");
     }
-    res.redirect("/goals");
+    res.render("runs/new", {
+      goal,
+      dayjs: dayjs,
+      message: "Date does not match goal month and year",
+    });
   } catch (error) {
     //console.log(error);
 
@@ -118,7 +129,12 @@ async function create(req, res) {
 async function show(req, res) {
   //const run = await Run.findById(req.params.id);
   const run = await Run.findOne({ _id: req.params.id, user: req.user._id });
-  res.render("runs/show", { run, dayjs: dayjs, message: "" });
+  if (!run) {
+    return res.redirect("/");
+  } else if (run.user._id.toString() === req.user.id);
+  {
+    res.render("runs/show", { run, dayjs: dayjs, message: "" });
+  }
 }
 
 async function update(req, res) {
@@ -163,8 +179,14 @@ async function update(req, res) {
       runUpdate.terrain = req.body.terrain;
       runUpdate.status = req.body.status;
       await runUpdate.save();
+
+      res.redirect("/runs");
     }
-    res.redirect("/runs");
+    res.render("runs/show", {
+      run,
+      dayjs: dayjs,
+      message: "Date does not match goal month and year",
+    });
   } catch (err) {
     //console.log(err);
     res.render("runs/show", {
@@ -202,21 +224,23 @@ async function search(req, res) {
         message: "No runs found",
       });
     }
-    let total = 0;
+
+    let meters = 0;
     for (i = 0; i < run.length; i++) {
       if (run[i].status === "complete") {
-        total += run[i].distance;
+        meters += run[i].distance;
       }
     }
-    let totalDistance = Math.round(total / 1000);
-    let time = 0;
+    let totalDistance = (meters / 1000).toFixed(2);
+
+    let minutes = 0;
     for (i = 0; i < run.length; i++) {
       if (run[i].status === "complete") {
-        time += run[i].time;
+        minutes += run[i].time;
       }
     }
-    let totalTime = Math.round(time / 60);
-    // console.log("RESULT", run);
+    let totalTime = (minutes / 60).toFixed(2);
+
     res.render("runs/index", {
       run,
       totalDistance,
