@@ -4,8 +4,8 @@
   <h2>Your Run</h2>
   <ul>
     <li>Run Date: <%= dayjs(run.date).format('DD MMM YYYY');%></li>
-    <li>Distance: <%= run.distance%> meters</li>
     <li>Time: <%= run.time%> minutes</li>
+    <li>Distance: <%= run.distance%> meters</li>
     <li>Average Speed: <%= run.speed %>kph</li>
     <li>Terrain: <%= run.terrain.toUpperCase() %></li>
     <li>Status: <%= run.status.toUpperCase() %></li>
@@ -17,7 +17,7 @@
   <h3>Edit Run For <%= dayjs(run.date).format('MMM YYYY');%> Goal</h3>
   <form action="/runs/update/<%= run.id %>?_method=PUT" method="POST">
     <label
-      >Date (in <%= dayjs(run.date).format('MMM YYYY');%> ): <input type="date" name="date" value="<%= dayjs(run.date).format('YYYY-MM-DD') %>" /> </label
+      >Date: <input type="date" name="date" value="<%= dayjs(run.date).format('YYYY-MM-DD') %>" /> </label
     >
     <label
       >Time (minutes):

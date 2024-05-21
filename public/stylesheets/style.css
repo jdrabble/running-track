@@ -82,7 +82,7 @@ form {
 }
 
 input, select {
-  width: 100px;
+  width: 150px;
   height: 25px;
   margin: 5px;
   font-size: 14px;
@@ -224,7 +224,7 @@ td button {
   }
 
   input, select {
-    width: 90px;
+    width: 100px;
     height: 18px;
     margin: 4px;
     font-size: 12px;
