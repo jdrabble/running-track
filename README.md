@@ -26,7 +26,7 @@ Log in using Google OAuth to create your account. Create some monthly running go
 
 - As a user I want to be able to log in and out.
 - As a user I want only logged in users to be able to use the application, and be able to go further than the home page.
-- As a user I want users to be redirected to the home page if they try to access an a page or record they are not permitted to view.
+- As a user I want users to be redirected to the home page if they try to access a page or record they are not permitted to view.
 - As a user I want to be able to easily navigate pages and between pages.
 - As a user I want to be able to create my monthly running goals.
 - As a user I want to be prevented from creating duplicate running goals.
@@ -34,7 +34,7 @@ Log in using Google OAuth to create your account. Create some monthly running go
 - As a user I want to be able to delete my monthly goals.
 - As a user I to be the only user that can create, read, edit and delete my monthly goals.
 - As a user I want to be able to see all my monthly goals together, in date order, and filter them.
-- As a user I want to see how I am progressing against my monthly goals, versus completed runs, as a percentage, along with color coding (red for below 50% of taget, amber for 50-99%, green for 100% and above) and planned runs are not to count towards the goal target.
+- As a user I want to see how I am progressing against my monthly goals versus completed runs, as a percentage, along with color coding (red for below 50% of taget, amber for 50-99%, green for 100% and above) and planned runs are not to count towards the goal target.
 - As a user I want to be able to see how many goals I have completed by month and in total.
 - As a user I want to be rewarded with a trophy when I achieve my monthly goal.
 - As a user I want my monthly goal progress to be automatically updated to include all my relevant completed monthly runs that occurred before the monthly goal was set up - for example, if a goal is created part way through a month.
